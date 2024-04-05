@@ -5,21 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FCE6E6E6"
-    tools:context=".presentation.MainActivity">
+    tools:context=".presentation.StepsActivity">
 
     <TextView
         android:id="@+id/tasks_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:text="@string/title_tasks"
-        android:textAppearance="@style/TitleText"
+        android:text="@string/title_algorithm"
+        android:textAppearance="@style/TitleText2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_shop_list"
+        android:id="@+id/rv_algorithm_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
@@ -28,20 +28,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tasks_title" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/bttn_add_shop_item"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/add"
-        android:clickable="true"
-        android:contentDescription="Add new shop item"
-        android:focusable="true"
-        app:layout_constraintBottom_toBottomOf="@id/tasks_title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tasks_title"
-        tools:ignore="TouchTargetSizeCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

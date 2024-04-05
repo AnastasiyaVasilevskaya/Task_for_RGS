@@ -3,11 +3,15 @@
     <style name="TitleText">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">#332E2B</item>
-        <item name="android:textSize">28dp</item>
+        <item name="android:textSize">28sp</item>
+    </style>
+
+    <style name="TitleText2" parent="TitleText">
+        <item name="android:textColor">@color/teal_200</item>
     </style>
 
     <style name="BackTextHint">
         <item name="android:textColor">@color/purple_700</item>
-        <item name="android:textSize">15dp</item>
+        <item name="android:textSize">15sp</item>
     </style>
 </resources>

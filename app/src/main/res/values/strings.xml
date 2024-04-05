@@ -1,8 +1,9 @@
 <resources>
-    <string name="app_name">ShopList</string>
-    <string name="error_input_count">Invalid input count</string>
-    <string name="error_input_name">Invalid input name</string>
+    <string name="app_name">Инструкции РГС</string>
+    <string name="error_input_name">Пустое поле</string>
     <string name="title_tasks">Инструкции</string>
     <string name="back_text">Назад</string>
     <string name="back_arrow">back arrow</string>
+    <string name="save">Сохранить</string>
+    <string name="title_algorithm">Алгоритм</string>
 </resources>

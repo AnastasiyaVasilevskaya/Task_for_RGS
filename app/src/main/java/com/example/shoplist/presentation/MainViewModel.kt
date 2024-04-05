@@ -5,36 +5,36 @@ import android.content.ContentValues
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.shoplist.data.ShopListRepositoryImpl
-import com.example.shoplist.domain.DeleteShopItemUseCase
-import com.example.shoplist.domain.EditShopItemUseCase
-import com.example.shoplist.domain.GetShopListUseCase
-import com.example.shoplist.domain.ShopItem
+import com.example.shoplist.data.ListRepositoryImpl
+import com.example.shoplist.domain.DeleteItemUseCase
+import com.example.shoplist.domain.EditItemUseCase
+import com.example.shoplist.domain.GetListUseCase
+import com.example.shoplist.domain.ListItem
 import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository = ShopListRepositoryImpl(application)
+    private val repository = ListRepositoryImpl(application)
 
-    private val editShopItemUseCase = EditShopItemUseCase(repository);
-    private val deleteShopItemUseCase = DeleteShopItemUseCase(repository);
-    private val getShopListUseCase = GetShopListUseCase(repository);
+    private val editItemUseCase = EditItemUseCase(repository)
+    private val deleteItemUseCase = DeleteItemUseCase(repository)
+    private val getListUseCase = GetListUseCase(repository)
 
-    val shopListLD = getShopListUseCase.getShopList() //автообновление LD
-    fun deleteShopItem(shopItem: ShopItem) {
+    val shopListLD = getListUseCase.getList() //автообновление LD
+    fun deleteItem(item: ListItem) {
         viewModelScope.launch {
-            deleteShopItemUseCase.deleteShopItem(shopItem)
+            deleteItemUseCase.deleteItem(item)
             Log.d(
                 ContentValues.TAG,
-                "deleteShopItem MainVM from VMScope.launch() ${viewModelScope.coroutineContext} "
+                "deleteItem MainVM from VMScope.launch() ${viewModelScope.coroutineContext} "
             )
         }
     }
 
-    fun changeEnableState(shopItem: ShopItem) {
+    fun changeEnableState(item: ListItem) {
         viewModelScope.launch {
-            val newItem = shopItem.copy(enabled = !shopItem.enabled)
-            editShopItemUseCase.editShopItem(newItem)
+            val newItem = item.copy(enabled = !item.enabled)
+            editItemUseCase.editItem(newItem)
             Log.d(
                 ContentValues.TAG,
                 "changeEnableState MainVM from VMScope.launch() ${viewModelScope.coroutineContext} "

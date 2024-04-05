@@ -9,27 +9,26 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoplist.R
 import com.example.shoplist.databinding.ActivityMainBinding
-import com.example.shoplist.presentation.ShopItemActivity.Companion.newIntentAdd
-import com.example.shoplist.presentation.ShopItemActivity.Companion.newIntentEdit
-import com.example.shoplist.presentation.ShopListAdapter.Companion.MAX_PULL_SIZE
-import com.example.shoplist.presentation.ShopListAdapter.Companion.VIEW_TYPE_DISABLED
-import com.example.shoplist.presentation.ShopListAdapter.Companion.VIEW_TYPE_ENABLED
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.example.shoplist.presentation.ItemActivity.Companion.newIntentAdd
+import com.example.shoplist.presentation.ItemActivity.Companion.newIntentEdit
+import com.example.shoplist.presentation.ListAdapter.Companion.MAX_PULL_SIZE
+import com.example.shoplist.presentation.ListAdapter.Companion.VIEW_TYPE_DISABLED
+import com.example.shoplist.presentation.ListAdapter.Companion.VIEW_TYPE_ENABLED
 
 class MainActivity : ComponentActivity() {
 
     private lateinit var viewModel: MainViewModel
-    private lateinit var adapter: ShopListAdapter
+    private lateinit var adapter: ListAdapter
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setupRVShopList()
+        setupRVList()
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         viewModel.shopListLD.observe(this) {
-            adapter.shopList = it
+            adapter.list = it
         }
         binding.bttnAddShopItem.setOnClickListener {
             val intent = newIntentAdd(this)
@@ -37,21 +36,21 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    fun setupRVShopList() {
-        val rvShopList = findViewById<RecyclerView>(R.id.rv_shop_list)
-        adapter = ShopListAdapter()
-        rvShopList.adapter = adapter
-        with(rvShopList) {
-            Log.d(TAG, "setupRVShopList")
+    fun setupRVList() {
+        val rvList = findViewById<RecyclerView>(R.id.rv_shop_list)
+        adapter = ListAdapter()
+        rvList.adapter = adapter
+        with(rvList) {
+            Log.d(TAG, "setupRVList")
             recycledViewPool.setMaxRecycledViews(VIEW_TYPE_ENABLED, MAX_PULL_SIZE)
             recycledViewPool.setMaxRecycledViews(VIEW_TYPE_DISABLED, MAX_PULL_SIZE)
         }
-        setupSwipeListener(rvShopList)
+        setupSwipeListener(rvList)
         setupLongClickListener()
         setupClickListener()
     }
 
-    private fun setupSwipeListener(rvShopList: RecyclerView) {
+    private fun setupSwipeListener(rvList: RecyclerView) {
         val callback = object : ItemTouchHelper.SimpleCallback(
             0,
             ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
@@ -65,16 +64,16 @@ class MainActivity : ComponentActivity() {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val item = adapter.shopList[viewHolder.adapterPosition]
-                viewModel.deleteShopItem(item)
+                val item = adapter.list[viewHolder.adapterPosition]
+                viewModel.deleteItem(item)
             }
         }
         val itemTouchHelper = ItemTouchHelper(callback)
-        itemTouchHelper.attachToRecyclerView(rvShopList)
+        itemTouchHelper.attachToRecyclerView(rvList)
     }
 
     private fun setupClickListener() {
-        adapter.onShopItemClickListener = {
+        adapter.onListItemClickListener = {
             Log.d(TAG, "it info id: ${it.id} status: ${it.enabled} ")
             val intent = newIntentEdit(this, it.id)
             startActivity(intent)
@@ -82,7 +81,7 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun setupLongClickListener() {
-        adapter.onShopItemLongClickListener = {
+        adapter.onListItemLongClickListener = {
             viewModel.changeEnableState(it)
         }
     }

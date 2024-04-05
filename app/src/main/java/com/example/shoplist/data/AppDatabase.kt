@@ -5,10 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [ShopItemDBModel::class], version = 2, exportSchema = false)
+@Database(entities = [ItemDBModel::class], version = 2, exportSchema = false)
 abstract class AppDatabase: RoomDatabase() {
 
-    abstract fun shopListDao(): ShopListDao
+    abstract fun listDao(): ListDao
 
     companion object{
         private var INSTANCE: AppDatabase? = null

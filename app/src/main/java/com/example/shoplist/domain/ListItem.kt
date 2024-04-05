@@ -1,6 +1,6 @@
 package com.example.shoplist.domain
 
-data class ShopItem(
+data class ListItem(
     val name: String,
     val enabled: Boolean,
     var id: Int = UNDEFINED_ID

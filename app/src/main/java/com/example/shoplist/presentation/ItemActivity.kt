@@ -10,19 +10,18 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.shoplist.R
-import com.example.shoplist.databinding.ActivityMainBinding
 import com.example.shoplist.databinding.ActivityShopItemBinding
-import com.example.shoplist.domain.ShopItem
+import com.example.shoplist.domain.ListItem
 
-class ShopItemActivity : ComponentActivity() {
+class ItemActivity : ComponentActivity() {
     private lateinit var binding: ActivityShopItemBinding
-    private lateinit var viewModel: ShopItemViewModel
+    private lateinit var viewModel: ItemViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityShopItemBinding.inflate(layoutInflater)
         setContentView(binding.root)
         parseIntent()
-        viewModel = ViewModelProvider(this)[ShopItemViewModel::class.java]
+        viewModel = ViewModelProvider(this)[ItemViewModel::class.java]
         addTextChangeListeners()
         when (screenMode) {
             MODE_EDIT -> launchEditMode()
@@ -40,6 +39,10 @@ class ShopItemActivity : ComponentActivity() {
         viewModel.finishCurrentScreenLD.observe(this) {
             finish()
         }
+
+        binding.backButton.setOnClickListener(){
+            finish()
+        }
     }
 
     private fun addTextChangeListeners() {
@@ -51,16 +54,15 @@ class ShopItemActivity : ComponentActivity() {
 
             override fun afterTextChanged(s: Editable?) {}
         })
-
     }
 
     private fun launchEditMode() {
-        viewModel.getShopItem(shopItemID)
-        viewModel.shopItemLD.observe(this) {
+        viewModel.getItem(itemID)
+        viewModel.itemLD.observe(this) {
             binding.editTextName.setText(it.name)
         }
         binding.buttonSave.setOnClickListener {
-            viewModel.editShopItem(
+            viewModel.editItem(
                 binding.editTextName.text?.toString()
             )
         }
@@ -68,14 +70,14 @@ class ShopItemActivity : ComponentActivity() {
 
     private fun launchAddMode() {
         binding.buttonSave.setOnClickListener {
-            viewModel.addShopItem(
+            viewModel.addItem(
                 binding.editTextName.text?.toString()
             )
         }
     }
 
     private var screenMode = MODE_UNKNOWN
-    private var shopItemID = ShopItem.UNDEFINED_ID
+    private var itemID = ListItem.UNDEFINED_ID
 
     private fun parseIntent() { //проверка интента
         if (!intent.hasExtra(EXTRA_SCREEN_MODE)) {
@@ -91,7 +93,7 @@ class ShopItemActivity : ComponentActivity() {
             if (!intent.hasExtra(EXTRA_SHOP_ITEM_ID)) {
                 throw RuntimeException("Mode edit doesn't have extra shop item id")
             }
-            shopItemID = intent.getIntExtra(EXTRA_SHOP_ITEM_ID, ShopItem.UNDEFINED_ID)
+            itemID = intent.getIntExtra(EXTRA_SHOP_ITEM_ID, ListItem.UNDEFINED_ID)
         }
     }
 
@@ -103,16 +105,16 @@ class ShopItemActivity : ComponentActivity() {
         const val MODE_UNKNOWN = ""
 
         fun newIntentAdd(context: Context): Intent {
-            val intent = Intent(context, ShopItemActivity::class.java)
+            val intent = Intent(context, ItemActivity::class.java)
             intent.putExtra(EXTRA_SCREEN_MODE, MODE_ADD)
             Log.d(TAG, "intent from newIntentAdd: $intent")
             return intent
         }
 
-        fun newIntentEdit(context: Context, shopItemID: Int): Intent {
-            val intent = Intent(context, ShopItemActivity::class.java)
+        fun newIntentEdit(context: Context, itemID: Int): Intent {
+            val intent = Intent(context, ItemActivity::class.java)
             intent.putExtra(EXTRA_SCREEN_MODE, MODE_EDIT)
-            intent.putExtra(EXTRA_SHOP_ITEM_ID, shopItemID)
+            intent.putExtra(EXTRA_SHOP_ITEM_ID, itemID)
             Log.d(TAG, "intent from newIntentEdit: $intent")
             Log.d(TAG, "intent from newIntentEdit (ID): $intent")
             return intent
