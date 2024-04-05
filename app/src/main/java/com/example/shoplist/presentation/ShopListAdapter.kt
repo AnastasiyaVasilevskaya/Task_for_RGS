@@ -35,7 +35,6 @@ class ShopListAdapter : RecyclerView.Adapter<ShopListViewHolder>() {
     override fun onBindViewHolder(holder: ShopListViewHolder, position: Int) {
         val shopItem = shopList[position]
         holder.itemName.text = shopItem.name
-        holder.itemCount.text = shopItem.count.toString()
         holder.view.setOnLongClickListener {
             onShopItemLongClickListener?.invoke(shopItem)
             false

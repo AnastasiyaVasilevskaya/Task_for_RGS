@@ -8,6 +8,5 @@ data class ShopItemDBModel(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val name: String,
-    var count: Int,
     val enabled: Boolean
 )

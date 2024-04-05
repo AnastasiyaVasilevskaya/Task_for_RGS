@@ -7,7 +7,6 @@ class ShopListMapper {
         return ShopItemDBModel(
             id = shopItem.id,
             name = shopItem.name,
-            count = shopItem.count,
             enabled = shopItem.enabled
         )
     }
@@ -15,7 +14,6 @@ class ShopListMapper {
         return ShopItem(
             id = shopItemDbModel.id,
             name = shopItemDbModel.name,
-            count = shopItemDbModel.count,
             enabled = shopItemDbModel.enabled
         )
     }

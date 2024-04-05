@@ -2,4 +2,7 @@
     <string name="app_name">ShopList</string>
     <string name="error_input_count">Invalid input count</string>
     <string name="error_input_name">Invalid input name</string>
+    <string name="title_tasks">Инструкции</string>
+    <string name="back_text">Назад</string>
+    <string name="back_arrow">back arrow</string>
 </resources>

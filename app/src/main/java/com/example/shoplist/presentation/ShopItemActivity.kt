@@ -28,14 +28,7 @@ class ShopItemActivity : ComponentActivity() {
             MODE_EDIT -> launchEditMode()
             MODE_ADD -> launchAddMode()
         }
-        viewModel.errorInputCount.observe(this) {
-            val message = if (it) {
-                getString(R.string.error_input_count)
-            } else {
-                null
-            }
-            binding.layoutCount.error = message
-        }
+
         viewModel.errorInputName.observe(this) {
             val message = if (it) {
                 getString(R.string.error_input_name)
@@ -55,27 +48,20 @@ class ShopItemActivity : ComponentActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 viewModel.resetErrorInputName()
             }
+
             override fun afterTextChanged(s: Editable?) {}
         })
-        binding.editTextName.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                viewModel.resetErrorInputCount()
-            }
-            override fun afterTextChanged(s: Editable?) {}
-        })
+
     }
 
     private fun launchEditMode() {
         viewModel.getShopItem(shopItemID)
         viewModel.shopItemLD.observe(this) {
             binding.editTextName.setText(it.name)
-            binding.editTextCount.setText(it.count.toString())
         }
         binding.buttonSave.setOnClickListener {
             viewModel.editShopItem(
-                binding.editTextName.text?.toString(),
-                binding.editTextCount.text.toString()
+                binding.editTextName.text?.toString()
             )
         }
     }
@@ -83,8 +69,7 @@ class ShopItemActivity : ComponentActivity() {
     private fun launchAddMode() {
         binding.buttonSave.setOnClickListener {
             viewModel.addShopItem(
-                binding.editTextName.text?.toString(),
-                binding.editTextCount.text.toString()
+                binding.editTextName.text?.toString()
             )
         }
     }
