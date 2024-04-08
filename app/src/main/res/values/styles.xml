@@ -3,7 +3,7 @@
     <style name="TitleText">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">#332E2B</item>
-        <item name="android:textSize">28sp</item>
+        <item name="android:textSize">32sp</item>
     </style>
 
     <style name="TitleText2" parent="TitleText">

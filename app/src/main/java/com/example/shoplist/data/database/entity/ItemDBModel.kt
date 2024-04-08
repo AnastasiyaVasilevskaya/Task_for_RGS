@@ -1,12 +1,12 @@
-package com.example.shoplist.data
+package com.example.shoplist.data.database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "shop_items")
+@Entity(tableName = "list_items")
 data class ItemDBModel(
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    val id: Int = 0,
     val name: String,
     val enabled: Boolean
 )

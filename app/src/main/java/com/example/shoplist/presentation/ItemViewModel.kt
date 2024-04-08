@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.shoplist.data.ListRepositoryImpl
+import com.example.shoplist.data.repository.ListRepositoryImpl
 import com.example.shoplist.domain.AddItemUseCase
 import com.example.shoplist.domain.EditItemUseCase
 import com.example.shoplist.domain.GetItemUseCase

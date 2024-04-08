@@ -1,8 +1,10 @@
-package com.example.shoplist.data
+package com.example.shoplist.data.repository
 
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
+import com.example.shoplist.data.utils.ListMapper
+import com.example.shoplist.data.database.AppDatabase
 import com.example.shoplist.domain.ListItem
 import com.example.shoplist.domain.ListRepository
 

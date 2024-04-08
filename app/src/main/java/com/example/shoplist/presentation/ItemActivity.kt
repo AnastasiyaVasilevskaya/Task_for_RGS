@@ -90,16 +90,17 @@ class ItemActivity : ComponentActivity() {
         }
         screenMode = mode
         if (screenMode == MODE_EDIT) {
-            if (!intent.hasExtra(EXTRA_SHOP_ITEM_ID)) {
+            if (!intent.hasExtra(EXTRA_ITEM_ID)) {
                 throw RuntimeException("Mode edit doesn't have extra shop item id")
             }
-            itemID = intent.getIntExtra(EXTRA_SHOP_ITEM_ID, ListItem.UNDEFINED_ID)
+            itemID = intent.getIntExtra(EXTRA_ITEM_ID, ListItem.UNDEFINED_ID)
         }
     }
 
     companion object {
         const val EXTRA_SCREEN_MODE = "extra_mode"
-        const val EXTRA_SHOP_ITEM_ID = "extra_shop_item_id"
+        const val EXTRA_ITEM_ID = "extra_item_id"
+        const val MODE_DETAILS = "mode_details"
         const val MODE_EDIT = "mode_edit"
         const val MODE_ADD = "mode_add"
         const val MODE_UNKNOWN = ""
@@ -114,7 +115,16 @@ class ItemActivity : ComponentActivity() {
         fun newIntentEdit(context: Context, itemID: Int): Intent {
             val intent = Intent(context, ItemActivity::class.java)
             intent.putExtra(EXTRA_SCREEN_MODE, MODE_EDIT)
-            intent.putExtra(EXTRA_SHOP_ITEM_ID, itemID)
+            intent.putExtra(EXTRA_ITEM_ID, itemID)
+            Log.d(TAG, "intent from newIntentEdit: $intent")
+            Log.d(TAG, "intent from newIntentEdit (ID): $intent")
+            return intent
+        }
+
+        fun newIntentDetails(context: Context, itemID: Int): Intent {
+            val intent = Intent(context, StepsActivity::class.java)
+            intent.putExtra(EXTRA_SCREEN_MODE, MODE_DETAILS)
+            intent.putExtra(EXTRA_ITEM_ID, itemID)
             Log.d(TAG, "intent from newIntentEdit: $intent")
             Log.d(TAG, "intent from newIntentEdit (ID): $intent")
             return intent
