@@ -7,17 +7,17 @@ class ListMapper {
     fun mapEntityToDBModel(item: ListItem): ItemDBModel {
         return ItemDBModel(
             id = item.id,
-            name = item.name,
-            enabled = item.enabled
+            name = item.name
         )
     }
-    fun mapDBModelToEntity(shopItemDbModel: ItemDBModel): ListItem{
+
+    fun mapDBModelToEntity(shopItemDbModel: ItemDBModel): ListItem {
         return ListItem(
             id = shopItemDbModel.id,
-            name = shopItemDbModel.name,
-            enabled = shopItemDbModel.enabled
+            name = shopItemDbModel.name
         )
     }
+
     fun mapListDbModelToEntity(list: List<ItemDBModel>) = list.map {
         mapDBModelToEntity(it)
     }
