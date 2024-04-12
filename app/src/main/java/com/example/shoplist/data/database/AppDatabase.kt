@@ -1,28 +1,25 @@
 package com.example.shoplist.data.database
 
 import android.app.Application
-import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.shoplist.data.ListDBMigration
 import com.example.shoplist.data.database.entity.ItemDBModel
 import com.example.shoplist.data.database.dao.ListDao
 import com.example.shoplist.data.database.dao.StepsDao
-import com.example.shoplist.data.database.entity.StepsDB
-import java.io.FileOutputStream
-import java.io.IOException
+import com.example.shoplist.data.database.entity.StepsDBModel
 
-@Database(entities = [ItemDBModel::class, StepsDB::class], version = 1, exportSchema = false)
+@Database(entities = [ItemDBModel::class, StepsDBModel::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
-
-    abstract fun stepsDao(): StepsDao
     abstract fun listDao(): ListDao
+    abstract fun stepsDao(): StepsDao
 
     companion object {
+        @Volatile
         private var INSTANCE: AppDatabase? = null
         private val LOCK = Any()
-        private const val DATA_BASE_NAME = "list_item.db"
-        private const val DATA_BASE_STEPS = "steps_items.sql"
+        private const val DATABASE_NAME = "instructions_and_steps_item.db"
 
         fun getInstance(application: Application): AppDatabase {
             INSTANCE?.let {
@@ -33,10 +30,9 @@ abstract class AppDatabase : RoomDatabase() {
                     return it
                 }
                 val db = Room.databaseBuilder(
-                    application, AppDatabase::class.java, DATA_BASE_NAME
+                    application, AppDatabase::class.java, DATABASE_NAME
                 )
-                    .createFromAsset(DATA_BASE_STEPS)
-                    .allowMainThreadQueries()
+                    .addCallback(ListDBMigration())
                     .build()
                 INSTANCE = db
                 return db

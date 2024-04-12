@@ -27,15 +27,9 @@ class ListRepositoryImpl(
         listDao.addItem(mapper.mapEntityToDBModel(item))
     }
 
-    override suspend fun editItem(item: ListItem) {
-        listDao.addItem(mapper.mapEntityToDBModel(item))
-    }
 
     override suspend fun getItem(itemId: Int): ListItem {
         return mapper.mapDBModelToEntity(listDao.getItem(itemId))
     }
 
-    override suspend fun deleteItem(item: ListItem) {
-        listDao.deleteItem(item.id)
-    }
 }

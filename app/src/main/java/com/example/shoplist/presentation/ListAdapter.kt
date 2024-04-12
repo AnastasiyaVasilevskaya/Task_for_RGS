@@ -11,7 +11,8 @@ import com.example.shoplist.domain.ListItem
 
 class ListAdapter : RecyclerView.Adapter<ListViewHolder>() {
 
-    var list = listOf<ListItem>()
+    var list = listOf<ListItem>(
+    )
         set(value) {
             val callback = ListDiffCallback(list, value)
             val diffResult = DiffUtil.calculateDiff(callback)
@@ -19,7 +20,6 @@ class ListAdapter : RecyclerView.Adapter<ListViewHolder>() {
             field = value
         }
 
-    var onListItemLongClickListener: ((ListItem) -> Unit)? = null
     var onListItemClickListener: ((ListItem) -> Unit)? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val layout = when (viewType) {
@@ -35,10 +35,6 @@ class ListAdapter : RecyclerView.Adapter<ListViewHolder>() {
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val items = list[position]
         holder.itemName.text = items.name
-        holder.view.setOnLongClickListener {
-            onListItemLongClickListener?.invoke(items)
-            false
-        }
         holder.view.setOnClickListener {
             onListItemClickListener?.invoke(items)
         }
@@ -47,15 +43,6 @@ class ListAdapter : RecyclerView.Adapter<ListViewHolder>() {
 
     override fun getItemCount(): Int {
         return list.size
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        val item = list[position]
-        return if (item.enabled) {
-            VIEW_TYPE_ENABLED
-        } else {
-            VIEW_TYPE_DISABLED
-        }
     }
 
     companion object {

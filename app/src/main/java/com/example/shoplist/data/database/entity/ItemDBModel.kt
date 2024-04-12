@@ -7,6 +7,5 @@ import androidx.room.PrimaryKey
 data class ItemDBModel(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    val name: String,
-    val enabled: Boolean
+    val name: String
 )
