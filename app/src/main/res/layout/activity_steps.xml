@@ -20,6 +20,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/algorithm_title" />
 
+    <ImageView
+        android:id="@+id/ic_reset_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="3dp"
+        android:layout_weight="2"
+        android:contentDescription="@string/reset_arrow"
+        android:src="@drawable/bttn_reset"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/algorithm_title"
+        app:layout_constraintBottom_toBottomOf="@id/algorithm_title"/>
+
     <TextView
         android:id="@+id/algorithm_title"
         android:layout_width="wrap_content"

@@ -23,9 +23,9 @@ class ListAdapter : RecyclerView.Adapter<ListViewHolder>() {
     var onListItemClickListener: ((ListItem) -> Unit)? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val layout = when (viewType) {
-            VIEW_TYPE_DISABLED -> R.layout.item_shop_disabled
+            //VIEW_TYPE_DISABLED -> R.layout.item_shop_disabled
             VIEW_TYPE_ENABLED -> R.layout.item_shop_enabled
-            else -> throw RuntimeException("Unknown viewType: $viewType")
+            else -> R.layout.item_shop_enabled
         }
         val item = LayoutInflater.from(parent.context).inflate(layout, parent, false)
         return ListViewHolder(item)

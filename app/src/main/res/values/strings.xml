@@ -1,9 +1,10 @@
 <resources>
-    <string name="app_name">Инструкции РГС</string>
+    <string name="app_name">Ассистент АДС</string>
     <string name="error_input_name">Пустое поле</string>
-    <string name="title_tasks">Инструкции</string>
+    <string name="title_tasks">Планы ликвидации</string>
     <string name="back_text">Назад</string>
     <string name="back_arrow">back arrow</string>
     <string name="save">Сохранить</string>
     <string name="title_algorithm">Алгоритм</string>
+    <string name="reset_arrow">reset</string>
 </resources>

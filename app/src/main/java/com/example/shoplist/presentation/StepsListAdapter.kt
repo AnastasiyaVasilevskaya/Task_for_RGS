@@ -54,6 +54,11 @@ class StepsListAdapter : RecyclerView.Adapter<ListViewHolder>() {
         diffResult.dispatchUpdatesTo(this)
     }
 
+    fun resetToEnabledItems() {
+        stepsList.forEach { it.enabled = true }
+        notifyDataSetChanged()
+    }
+
     companion object {
         const val VIEW_TYPE_ENABLED = 1
         const val VIEW_TYPE_DISABLED = 0

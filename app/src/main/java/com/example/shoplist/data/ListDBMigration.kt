@@ -9,7 +9,7 @@ import com.example.shoplist.data.database.entity.StepsDBModel
 class ListDBMigration : RoomDatabase.Callback() {
     override fun onCreate(db: SupportSQLiteDatabase) {
         super.onCreate(db)
-        db.execSQL("INSERT INTO list_items (name) VALUES ('Запах газа в подвале жилого дома')")
+        db.execSQL("INSERT INTO list_items (name) VALUES ('1.1 Запах газа в подвале жилого дома')")
 
         val stepsData = listOf(
             Pair("Получить от приемщика заказов извещение об инциденте, аварии.", 1),

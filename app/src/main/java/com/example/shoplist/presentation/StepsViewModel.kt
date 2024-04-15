@@ -19,17 +19,13 @@ class StepsViewModel(application: Application) : AndroidViewModel(application) {
     private val getStepsUseCase = GetStepsUseCase(repository)
     private val updateStepsUseCase = UpdateStepsUseCase(repository)
 
-
     val stepsListLD = getStepsUseCase.getList() //автообновление LD
 
     fun changeEnableState(item: StepItem) {
         viewModelScope.launch {
             val newItem = item.copy(enabled = !item.enabled)
             updateStepsUseCase.updateSteps(newItem)
-            Log.d(
-                ContentValues.TAG,
-                "changeEnableState StepsVM from VMScope.launch() ${viewModelScope.coroutineContext} "
-            )
+
         }
     }
 }

@@ -37,7 +37,7 @@ class MainActivity : ComponentActivity() {
         with(rvList) {
             Log.d(TAG, "setupRVList")
             recycledViewPool.setMaxRecycledViews(VIEW_TYPE_ENABLED, MAX_PULL_SIZE)
-            recycledViewPool.setMaxRecycledViews(VIEW_TYPE_DISABLED, MAX_PULL_SIZE)
+
         }
         setupClickListener()
     }
