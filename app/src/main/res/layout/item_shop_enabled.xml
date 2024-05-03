@@ -8,14 +8,13 @@
     android:layout_marginTop="7dp"
     android:layout_marginEnd="11dp"
     android:layout_marginBottom="6dp"
-    android:background="@drawable/item_background"
+    app:cardBackgroundColor="@color/item_background"
     app:cardCornerRadius="15dp"
     app:cardElevation="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:padding="20dp">
 
         <TextView
@@ -25,7 +24,7 @@
             android:layout_weight="1"
             android:text="paper"
             android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textSize="17sp" />
 
     </LinearLayout>
 

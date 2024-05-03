@@ -1,12 +1,8 @@
 package com.example.shoplist.data.repository
 
-import android.app.Application
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import com.example.shoplist.data.utils.ListMapper
-import com.example.shoplist.data.database.AppDatabase
-import com.example.shoplist.data.utils.StepsMapper
-import com.example.shoplist.domain.ListItem
+import androidx.lifecycle.map
+import com.example.shoplist.data.database.dao.StepsDao
 import com.example.shoplist.domain.StepItem
 import com.example.shoplist.domain.StepsRepository
 import kotlinx.coroutines.Dispatchers
@@ -14,17 +10,14 @@ import kotlinx.coroutines.withContext
 
 
 class StepsRepositoryImpl(
-    application: Application
+    private val stepsDao: StepsDao
 ) : StepsRepository {
 
-    private val stepsDao = AppDatabase.getInstance(application).stepsDao()
     private val mapper = StepsMapper()
 
     override fun getList(): LiveData<List<StepItem>> =
-        MediatorLiveData<List<StepItem>>().apply {
-            addSource(stepsDao.fetchAllSteps()) {
-                value = mapper.mapListDbModelToEntity(it)
-            }
+        stepsDao.fetchAllSteps().map { db ->
+            mapper.mapListDbModelToEntity(db)
         }
 
     override suspend fun addItem(item: StepItem) {
@@ -44,6 +37,12 @@ class StepsRepositoryImpl(
     override suspend fun updateItem(item: StepItem) {
         withContext(Dispatchers.IO) {
             stepsDao.updateItem(mapper.mapEntityToDBModel(item))
+        }
+    }
+
+    override suspend fun resetSteps(stepsList: List<StepItem>) {
+        withContext(Dispatchers.IO) {
+            stepsDao.resetSteps()
         }
     }
 }

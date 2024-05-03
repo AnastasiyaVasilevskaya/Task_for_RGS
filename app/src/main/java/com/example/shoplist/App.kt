@@ -1,6 +1,7 @@
 package com.example.shoplist
 
 import android.app.Application
+import androidx.appcompat.app.AppCompatDelegate
 
 class App : Application() {
     companion object {
@@ -9,5 +10,6 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.getDefaultNightMode())
     }
 }

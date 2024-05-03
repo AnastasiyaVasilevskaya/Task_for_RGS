@@ -1,26 +1,21 @@
 package com.example.shoplist.data.repository
 
-import android.app.Application
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import com.example.shoplist.data.utils.ListMapper
-import com.example.shoplist.data.database.AppDatabase
+import androidx.lifecycle.map
+import com.example.shoplist.data.database.dao.ListDao
 import com.example.shoplist.domain.ListItem
 import com.example.shoplist.domain.ListRepository
 
 
 class ListRepositoryImpl(
-    application: Application
+    private val listDao: ListDao
 ) : ListRepository {
 
-    private val listDao = AppDatabase.getInstance(application).listDao()
     private val mapper = ListMapper()
 
     override fun getList(): LiveData<List<ListItem>> =
-        MediatorLiveData<List<ListItem>>().apply {
-            addSource(listDao.getList()) {
-                value = mapper.mapListDbModelToEntity(it)
-            }
+        listDao.getList().map { db ->
+            mapper.mapListDbModelToEntity(db)
         }
 
     override suspend fun addItem(item: ListItem) {

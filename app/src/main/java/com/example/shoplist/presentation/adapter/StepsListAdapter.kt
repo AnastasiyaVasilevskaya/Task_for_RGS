@@ -1,37 +1,49 @@
-package com.example.shoplist.presentation
+package com.example.shoplist.presentation.adapter
 
-import android.content.ContentValues
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoplist.R
 import com.example.shoplist.domain.StepItem
+import com.example.shoplist.presentation.StepsDiffCallback
+import com.example.shoplist.presentation.StepsViewHolder
 
-class StepsListAdapter : RecyclerView.Adapter<ListViewHolder>() {
+class StepsListAdapter : RecyclerView.Adapter<StepsViewHolder>() {
     var stepsList = listOf<StepItem>()
+        set(value) {
+            val callback = StepsDiffCallback(stepsList, value)
+            val diffResult = DiffUtil.calculateDiff(callback)
+            diffResult.dispatchUpdatesTo(this)
+            field = value
+        }
 
     var onListItemLongClickListener: ((StepItem) -> Unit)? = null
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
+    var onResetButtonClickListener: ((List<StepItem>) -> Unit)? = null
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StepsViewHolder {
         val layout = when (viewType) {
             VIEW_TYPE_DISABLED -> R.layout.item_shop_disabled
             VIEW_TYPE_ENABLED -> R.layout.item_shop_enabled
             else -> throw RuntimeException("Unknown viewType: $viewType")
         }
         val item = LayoutInflater.from(parent.context).inflate(layout, parent, false)
-        return ListViewHolder(item)
-        Log.d(ContentValues.TAG, "onCreateViewHolder")
+        return StepsViewHolder(item)
     }
 
-    override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: StepsViewHolder, position: Int) {
         val item = stepsList[position]
-        holder.itemName.text = item.name
-        holder.view.setOnLongClickListener {
+        holder.bind(item)
+        holder.itemName.setOnLongClickListener {
             onListItemLongClickListener?.invoke(item)
-            false
+            true
         }
-        Log.d(ContentValues.TAG, "onBindViewHolder")
+
+//        resetButton.setOnClickListener {
+//            onResetButtonClickListener?.invoke(stepsList)
+//            true
+//        }
     }
 
     override fun getItemCount(): Int {
@@ -47,17 +59,7 @@ class StepsListAdapter : RecyclerView.Adapter<ListViewHolder>() {
         }
     }
 
-    fun updateList(newList: List<StepItem>) {
-        val callback = StepsDiffCallback(stepsList, newList)
-        val diffResult = DiffUtil.calculateDiff(callback)
-        stepsList = newList
-        diffResult.dispatchUpdatesTo(this)
-    }
 
-    fun resetToEnabledItems() {
-        stepsList.forEach { it.enabled = true }
-        notifyDataSetChanged()
-    }
 
     companion object {
         const val VIEW_TYPE_ENABLED = 1

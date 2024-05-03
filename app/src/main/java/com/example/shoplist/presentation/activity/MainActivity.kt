@@ -1,21 +1,22 @@
-package com.example.shoplist.presentation
+package com.example.shoplist.presentation.activity
 
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
-import androidx.lifecycle.ViewModelProvider
+import androidx.activity.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoplist.R
 import com.example.shoplist.databinding.ActivityMainBinding
-import com.example.shoplist.presentation.ListAdapter.Companion.MAX_PULL_SIZE
-import com.example.shoplist.presentation.ListAdapter.Companion.VIEW_TYPE_DISABLED
-import com.example.shoplist.presentation.ListAdapter.Companion.VIEW_TYPE_ENABLED
+import com.example.shoplist.presentation.adapter.ListAdapter
+import com.example.shoplist.presentation.adapter.ListAdapter.Companion.MAX_PULL_SIZE
+import com.example.shoplist.presentation.adapter.ListAdapter.Companion.VIEW_TYPE_ENABLED
+import com.example.shoplist.presentation.viewmodels.MainViewModel
 
 class MainActivity : ComponentActivity() {
 
-    private lateinit var viewModel: MainViewModel
+    private val viewModel: MainViewModel by viewModels()
     private lateinit var adapter: ListAdapter
     private lateinit var binding: ActivityMainBinding
 
@@ -24,7 +25,6 @@ class MainActivity : ComponentActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupRVList()
-        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         viewModel.listLD.observe(this) {
             adapter.list = it
         }

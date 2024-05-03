@@ -19,7 +19,7 @@ abstract class AppDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: AppDatabase? = null
         private val LOCK = Any()
-        private const val DATABASE_NAME = "instructions_and_steps_item.db"
+        private const val DATABASE_NAME = "plans_and_steps_item.db"
 
         fun getInstance(application: Application): AppDatabase {
             INSTANCE?.let {

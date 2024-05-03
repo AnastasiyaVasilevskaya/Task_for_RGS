@@ -14,7 +14,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/purple_700"
+        android:background="@color/item_background_dis"
         android:orientation="horizontal"
         android:padding="20dp">
 
@@ -24,10 +24,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="17sp"
             android:textStyle="bold"
             tools:text="paper" />
-
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

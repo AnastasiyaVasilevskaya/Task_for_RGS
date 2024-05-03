@@ -1,13 +1,13 @@
-package com.example.shoplist.presentation
+package com.example.shoplist.presentation.adapter
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoplist.R
 import com.example.shoplist.domain.ListItem
+import com.example.shoplist.presentation.ListDiffCallback
+import com.example.shoplist.presentation.ListViewHolder
 
 class ListAdapter : RecyclerView.Adapter<ListViewHolder>() {
 
@@ -23,22 +23,19 @@ class ListAdapter : RecyclerView.Adapter<ListViewHolder>() {
     var onListItemClickListener: ((ListItem) -> Unit)? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val layout = when (viewType) {
-            //VIEW_TYPE_DISABLED -> R.layout.item_shop_disabled
             VIEW_TYPE_ENABLED -> R.layout.item_shop_enabled
             else -> R.layout.item_shop_enabled
         }
         val item = LayoutInflater.from(parent.context).inflate(layout, parent, false)
         return ListViewHolder(item)
-        Log.d(TAG, "onCreateViewHolder")
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        val items = list[position]
-        holder.itemName.text = items.name
+        val item = list[position]
+        holder.bind(item)
         holder.view.setOnClickListener {
-            onListItemClickListener?.invoke(items)
+            onListItemClickListener?.invoke(item)
         }
-        Log.d(TAG, "onBindViewHolder")
     }
 
     override fun getItemCount(): Int {
@@ -51,3 +48,4 @@ class ListAdapter : RecyclerView.Adapter<ListViewHolder>() {
         const val MAX_PULL_SIZE = 5
     }
 }
+

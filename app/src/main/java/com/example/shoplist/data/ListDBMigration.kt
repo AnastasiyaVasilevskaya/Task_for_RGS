@@ -2,13 +2,15 @@ package com.example.shoplist.data
 
 import android.content.ContentValues
 import android.database.sqlite.SQLiteDatabase
+import android.view.LayoutInflater
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.example.shoplist.data.database.entity.StepsDBModel
+import com.example.shoplist.databinding.ActivityStepsBinding
 
 class ListDBMigration : RoomDatabase.Callback() {
     override fun onCreate(db: SupportSQLiteDatabase) {
         super.onCreate(db)
+
         db.execSQL("INSERT INTO list_items (name) VALUES ('1.1 Запах газа в подвале жилого дома')")
 
         val stepsData = listOf(

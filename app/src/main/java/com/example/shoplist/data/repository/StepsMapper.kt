@@ -1,8 +1,6 @@
-package com.example.shoplist.data.utils
+package com.example.shoplist.data.repository
 
-import com.example.shoplist.data.database.entity.ItemDBModel
 import com.example.shoplist.data.database.entity.StepsDBModel
-import com.example.shoplist.domain.ListItem
 import com.example.shoplist.domain.StepItem
 
 class StepsMapper {

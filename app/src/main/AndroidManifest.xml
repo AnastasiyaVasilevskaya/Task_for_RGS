@@ -10,12 +10,12 @@
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Material3.DayNight"
+        android:theme="@style/Theme.Assistant"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.MainActivity"
+            android:name=".presentation.activity.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.Material3.DayNight">
+            android:theme="@style/Theme.Assistant">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,9 +24,8 @@
         </activity>
 
         <activity
-            android:name=".presentation.StepsActivity"
+            android:name=".presentation.activity.StepsActivity"
             android:label="Steps Activity"
-            android:theme="@style/Theme.Material3.DayNight" />
-
+            android:theme="@style/Theme.Assistant" />
     </application>
 </manifest>

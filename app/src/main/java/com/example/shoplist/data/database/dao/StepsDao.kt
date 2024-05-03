@@ -22,4 +22,7 @@ interface StepsDao {
     @Update
     suspend fun updateItem(item: StepsDBModel)
 
+    @Query("UPDATE steps_items SET state = 1")
+    suspend fun resetSteps()
+
 }
