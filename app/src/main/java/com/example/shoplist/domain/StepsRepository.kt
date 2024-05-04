@@ -8,7 +8,7 @@ interface StepsRepository {
     suspend fun addItem(item: StepItem)
     suspend fun editItem(item: StepItem)
     suspend fun updateItem(item: StepItem)
-    suspend fun resetSteps(stepsList: List<StepItem>)
+    suspend fun resetSteps()
     suspend fun getItem(itemId: Int): StepItem
 
 }

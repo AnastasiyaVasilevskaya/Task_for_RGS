@@ -20,7 +20,7 @@ class StepsViewModel(application: Application) : AndroidViewModel(application) {
     private val updateStepsUseCase = UpdateStepsUseCase(repository)
     private val resetAllStepsToEnabledUseCase = ResetAllStepsToEnabledUseCase(repository)
 
-    private val stepsListLD = getStepsUseCase.getList() //автообновление LD
+    val stepsListLD = getStepsUseCase.getList() //автообновление LD
 
     fun changeEnableState(item: StepItem) {
         viewModelScope.launch {
@@ -29,14 +29,9 @@ class StepsViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun resetToEnabledItems(stepsList: List<StepItem>) {
+    fun resetToEnabledItems() {
         viewModelScope.launch {
-            val enabledItems = stepsList.map { it.copy(enabled = true) }
-            resetAllStepsToEnabledUseCase.resetSteps(enabledItems)
+            resetAllStepsToEnabledUseCase.resetSteps()
         }
-    }
-
-    fun getStepsLD(): LiveData<List<StepItem>> {
-        return stepsListLD
     }
 }

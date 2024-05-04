@@ -40,7 +40,7 @@ class StepsRepositoryImpl(
         }
     }
 
-    override suspend fun resetSteps(stepsList: List<StepItem>) {
+    override suspend fun resetSteps() {
         withContext(Dispatchers.IO) {
             stepsDao.resetSteps()
         }
