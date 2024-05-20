@@ -3,11 +3,17 @@ package com.example.shoplist.presentation.activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoplist.databinding.ActivityStepsBinding
 import com.example.shoplist.domain.StepItem
 import com.example.shoplist.presentation.adapter.StepsListAdapter
 import com.example.shoplist.presentation.viewmodels.StepsViewModel
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class StepsActivity : ComponentActivity() {
 
@@ -15,6 +21,8 @@ class StepsActivity : ComponentActivity() {
     private val viewModel: StepsViewModel by viewModels()
     private lateinit var adapter: StepsListAdapter
     private lateinit var rvList: RecyclerView
+    private lateinit var firebaseRef : DatabaseReference
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityStepsBinding.inflate(layoutInflater)
@@ -22,6 +30,13 @@ class StepsActivity : ComponentActivity() {
         setContentView(binding.root)
 
         setupStepsRVList()
+        setupFbDB()
+
+        rvList.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(this.context)
+        }
+
         setupResetButtonClickListener()
         initViewsListeners()
     }
@@ -39,6 +54,25 @@ class StepsActivity : ComponentActivity() {
 
             adapter.submitList(stepsListDB)
         }
+    }
+
+    private fun setupFbDB() {
+        firebaseRef = FirebaseDatabase.getInstance().getReference("1_1_steps")
+        firebaseRef.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val stepsListFB = mutableListOf<StepItem>()
+                if(snapshot.exists()) {
+                    snapshot.children.forEach { stepSnap ->
+                        val step = stepSnap.getValue(StepItem::class.java)
+                        step?.let {
+                            stepsListFB.add(it)
+                        }
+                    }
+                    adapter.submitList(stepsListFB)
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {            }
+        })
     }
 
     private fun setupLongClickListener() {

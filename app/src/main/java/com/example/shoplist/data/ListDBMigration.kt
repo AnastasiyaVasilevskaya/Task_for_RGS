@@ -7,11 +7,13 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.shoplist.databinding.ActivityStepsBinding
 
-class ListDBMigration : RoomDatabase.Callback() {
+class ListDBMigration() : RoomDatabase.Callback() {
+
     override fun onCreate(db: SupportSQLiteDatabase) {
         super.onCreate(db)
 
         db.execSQL("INSERT INTO list_items (name) VALUES ('1.1 Запах газа в подвале жилого дома')")
+        db.execSQL("INSERT INTO list_items (name) VALUES ('1.2 Второй план')")
 
         val stepsData = listOf(
             Pair("Получить от приемщика заказов извещение об инциденте, аварии.", 1),

@@ -12,6 +12,7 @@ import com.example.shoplist.data.database.entity.StepsDBModel
 
 @Database(entities = [ItemDBModel::class, StepsDBModel::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
+
     abstract fun listDao(): ListDao
     abstract fun stepsDao(): StepsDao
 
